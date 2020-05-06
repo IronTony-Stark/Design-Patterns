@@ -5,13 +5,13 @@
 #ifndef STRATEGY_MERGESORT_H
 #define STRATEGY_MERGESORT_H
 
-#include "SortingStrategy.h"
+#include "ISortingStrategy.h"
 #include "Utils.h"
 
 template<typename T,
         template<typename> class TypeStrategy,
         class Comparator>
-class MergeSort : public SortingStrategy<T> {
+class MergeSort : public ISortingStrategy<T> {
 public:
     void sort(AArray<T>& arr) override {
         T* aux = new T[arr.size()];

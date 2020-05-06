@@ -5,13 +5,13 @@
 #ifndef STRATEGY_INSERTIONSORT_H
 #define STRATEGY_INSERTIONSORT_H
 
-#include "SortingStrategy.h"
+#include "ISortingStrategy.h"
 #include "Utils.h"
 
 template<typename T,
         template<typename> class TypeStrategy,
         class Comparator>
-class InsertionSort : public SortingStrategy<T> {
+class InsertionSort : public ISortingStrategy<T> {
 public:
     void sort(AArray<T>& arr) override {
         for (int i = 1; i < arr.size(); i++) {

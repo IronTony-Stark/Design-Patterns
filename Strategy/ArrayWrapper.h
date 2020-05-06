@@ -6,7 +6,7 @@
 #define STRATEGY_ARRAYWRAPPER_H
 
 #include "AArray.h"
-#include "SortingStrategy.h"
+#include "ISortingStrategy.h"
 
 template<typename T, template<typename> class TypeStrategy>
 class ArrayWrapper : public AArray<T> {
@@ -70,7 +70,7 @@ public:
         mSortingStrategy->sort(*this);
     }
 
-    void setSortingStrategy(SortingStrategy<T>* sortingStrategy) {
+    void setSortingStrategy(ISortingStrategy<T>* sortingStrategy) {
         delete mSortingStrategy;
         mSortingStrategy = sortingStrategy;
     }
@@ -103,7 +103,7 @@ public:
 private:
     T* mAllocator;
     size_t mSize;
-    SortingStrategy<T>* mSortingStrategy = nullptr;
+    ISortingStrategy<T>* mSortingStrategy = nullptr;
 
     void copy(const ArrayWrapper& arr) {
         for (size_t i = 0; i < mSize; ++i)
