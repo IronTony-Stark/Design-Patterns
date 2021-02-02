@@ -11,17 +11,13 @@
 
 class LogHandler : public Handler {
 public:
-    explicit LogHandler(Handler* handler) : mNext(handler) {}
-
-    void handle(Request& request) override {
-        std::cout << request << std::endl;
-
-        if (mNext != nullptr)
-            mNext->handle(request);
-    }
+    explicit LogHandler(Handler* handler): Handler(handler) {};
 
 private:
-    Handler* mNext;
+    bool doHandle(Request &request) override {
+        std::cout << request << std::endl;
+        return true;
+    }
 };
 
 #endif //CHAINOFRESPONSIBILITY_LOGHANDLER_H

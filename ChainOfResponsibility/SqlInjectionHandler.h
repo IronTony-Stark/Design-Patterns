@@ -11,20 +11,16 @@
 
 class SqlInjectionHandler : public Handler {
 public:
-    explicit SqlInjectionHandler(Handler* handler) : mNext(handler) {}
-
-    void handle(Request& request) override {
-        if (request.mContainsSqlInjection) {
-            std::cout << "Request contains sql injection" << std::endl;
-            return;
-        }
-
-        if (mNext != nullptr)
-            mNext->handle(request);
-    }
+    explicit SqlInjectionHandler(Handler* handler) : Handler(handler) {}
 
 private:
-    Handler* mNext;
+    bool doHandle(Request& request) override{
+        if (request.mContainsSqlInjection) {
+            std::cout << "Request contains sql injection" << std::endl;
+            return false;
+        }
+        return true;
+    }
 };
 
 

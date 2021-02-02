@@ -9,22 +9,18 @@
 #include "Handler.h"
 #include "Request.h"
 
-class IpAddressHandler : public Handler {
+class IpAddressHandler : public Handler {\
 public:
-    explicit IpAddressHandler(Handler* handler) : mNext(handler) {}
+    explicit IpAddressHandler(Handler* handler): Handler(handler) {};
 
-    void handle(Request& request) override {
+private:
+    bool doHandle(Request &request) override {
         if (request.mIpAddress != "127.0.0.1") {
             std::cout << "Ip Address is different from the one user usually uses. "
                          "Sending security notification to user email..." << std::endl;
         }
-
-        if (mNext != nullptr)
-            mNext->handle(request);
+        return true;
     }
-
-private:
-    Handler* mNext;
 };
 
 #endif //CHAINOFRESPONSIBILITY_IPADDRESSHANDLER_H
