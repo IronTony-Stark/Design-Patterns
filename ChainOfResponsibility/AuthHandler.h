@@ -11,21 +11,18 @@
 
 class AuthHandler : public Handler {
 public:
-    explicit AuthHandler(Handler* handler) : mNext(handler) {}
-
-    void handle(Request& request) override {
-        if (request.mLogin == "irontony" && request.mPassword == "password") {
-            std::cout << "Auth Completed Successfully" << std::endl;
-
-            if (mNext != nullptr)
-                mNext->handle(request);
-        } else {
-            std::cout << "Wrong login or password" << std::endl;
-        }
-    }
+    explicit AuthHandler(Handler* handler): Handler(handler) {};
 
 private:
-    Handler* mNext;
+    bool doHandle(Request &request) override {
+        if (request.mLogin == "irontony" && request.mPassword == "password") {
+            std::cout << "Auth Completed Successfully" << std::endl;
+            return true;
+        } else {
+            std::cout << "Wrong login or password" << std::endl;
+            return false;
+        }
+    }
 };
 
 #endif //CHAINOFRESPONSIBILITY_AUTHHANDLER_H

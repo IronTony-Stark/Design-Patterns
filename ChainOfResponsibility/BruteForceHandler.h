@@ -11,23 +11,21 @@
 
 class BruteForceHandler : public Handler {
 public:
-    explicit BruteForceHandler(Handler* handler) : mNext(handler), mCount(0) {}
+    explicit BruteForceHandler(Handler *handler) : Handler(handler), mCount(0) {};
 
-    void handle(Request& request) override {
+private:
+    unsigned mCount;
+
+    bool doHandle(Request &request) override {
         if (++mCount > 5) {
             std::cout << "Brute Force Handler Blocked Request" << std::endl;
-            return;
+            return false;
         }
 
         std::cout << "Brute Force Count: " << mCount << std::endl;
 
-        if (mNext != nullptr)
-            mNext->handle(request);
+        return true;
     }
-
-private:
-    Handler* mNext;
-    unsigned mCount;
 };
 
 #endif //CHAINOFRESPONSIBILITY_BRUTEFORCEHANDLER_H
